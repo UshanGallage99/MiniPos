@@ -1,0 +1,265 @@
+﻿@using MiniPos.ViewModels
+@model CreateCustomerViewModel
+<head>
+    <link rel="stylesheet" href="~/css/createcutomers.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fontawesome/5.15.3/css/all.min.css">
+</head>
+
+<div class="container" style="width: 100%">
+    <div class="row" style="padding-top: 1%; padding-right: 2%;  padding-bottom:1%;  padding-left: 2%; height:100vh">
+
+        <div class="container mb-3 bg-white" style="padding-top: 2%; padding-right: 5%;  padding-bottom: 3%;  padding-left: 5%;">
+            <form method="post" asp-action="Edit">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group row">
+                            <label asp-for="Code" class="col-sm-2 col-form-label">Code</label>
+                            <div class="col-sm-4">
+                                <input type="text" asp-for="Code" value="@ViewBag.Code" class="form-control form-control-sm" id="code" readonly>
+                            </div>
+                            <span asp-validation-for="Code" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="Name" class="col-sm-2 col-form-label">Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" asp-for="Name" value="@ViewBag.Name" class="form-control form-control-sm" id="name">
+                            </div>
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="MobileNo" class="col-sm-2 col-form-label">Mobile</label>
+                            <div class="col-sm-6">
+                                <input asp-for="MobileNo" type="text" value="@ViewBag.MobileNo" class="form-control form-control-sm" id="mobile">
+                            </div>
+                            <span asp-validation-for="MobileNo" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="Email" class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-6">
+                                <input asp-for="Email" type="email" value="@ViewBag.Email" class="form-control form-control-sm" id="email">
+                            </div>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group row">
+                            <label asp-for="DOB" class="col-sm-2 col-form-label">Date</label>
+                            <div class="col-sm-6 datepicker">
+                                <input asp-for="DOB" type="date" value="@ViewBag.DOB" id="dob" class="form-control form-control-sm">
+                            </div>
+                            <span asp-validation-for="DOB" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="TownID" class="col-sm-2 col-form-label">Town</label>
+                            <div class="col-sm-8">
+                                <select asp-for="TownID" class="form-control form-control-sm form-select" asp-items="ViewBag.TownId">
+                                    <option selected>Select Town</option>
+                                </select>
+                                <span asp-validation-for="TownID" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>               
+                <div class="container collapsible">
+                    &nbsp; Contacts
+                </div>
+                <div class="content col" style="overflow-y:scroll; height:100px; display:block; height:100%">
+                    <div class="row" style="padding-top: 2%;  padding-bottom: 2%;  padding-left: 2%;">
+                        <button class="btn" type="button" style="float: right; background-color: #2F9FE1; width: 18%; height:80%;" id="add_row">+ Add New Record</button>
+                    </div>
+                    <div class="row" style="padding-bottom: 2%; padding-left: 2%; padding-right: 2%;">
+                        <table class="table table-bordered" id="tab_logic" style="border: 1px solid #C9D8ED;">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style="width:10%">
+                                        Name
+                                    </th>
+                                    <th scope="col" style="width:10%">
+                                        Designation
+                                    </th>
+                                    <th scope="col" style="width:10%">
+                                        Email
+                                    </th>
+                                    <th scope="col" style="width:10%">
+                                        Mobile
+                                    </th>
+                                    <th scope="col" style="width:10%">
+                                        Role
+                                    </th>
+                                    <th scope="col" style="width:10%">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var cus in ViewBag.ContactPersonViewModel)
+                                {
+                                    <tr>
+                                        <td>
+                                             <input type="text" name='@cus.Name' style="border: none;" class="form-control form-control-sm" value="@cus.Name" />                                           
+                                        </td>
+                                        <td>
+                                             <input type="text" name='@cus.Designation' style="border: none;" class="form-control form-control-sm" value="@cus.Designation" />
+                                            
+                                        </td>
+                                        <td>
+                                            <input type="text" name='@cus.Email' style="border: none;" class="form-control form-control-sm" value="@cus.Email" />                                            
+                                        </td>                                        
+                                        <td>
+                                            <input type="text" name='@cus.ContactNo' style="border: none;" class="form-control form-control-sm" value="@cus.ContactNo" />                                            
+                                        </td>
+                                        <td>
+                                            <input type="text" name='@cus.Role' style="border: none;" class="form-control form-control-sm" value="@cus.Role" />                                           
+                                        </td>
+                                        <td>
+                                        <div class="row" style="padding-left: 20%; align-item:center;">
+                                            <div class="col">
+                                                <div class="row"><a class="btn btn-sm" asp-controller="ContactPerson" asp-action="Edit" asp-route-Id="@cus.Id" style="float: right; background-color: #2F9FE1; width: 100%; color: white">Update</a></div>
+                                            </div>
+                                            <div class="col">
+                                               @* <div class="row" style="padding-left: 20%;">
+                                                    <button class="btn btn-danger btn-sm" id="delete_row" style="float: left; color: white; width: 27px; height: 27px; border-radius: 50%; color: white; font-weight: bold;">
+                                                    </button>
+                                                </div>*@
+                                                @Html.ActionLink( "Delete","Delete","ContactPerson", new { id = @cus.Id}, new { onclick="return confirm('Delete Confirmation')" })
+                                            </div>
+                                        </div>
+                                    </td>
+                                    </tr>
+                                }
+                                @*<tr class="detailRow">
+                                    <td class="detailcol1">
+                                        <input type="text" name='ContactPersonViewModel[0].Name' style="border: none;" class="form-control form-control-sm" />
+                                    </td>
+                                    <td class="detailcol2">
+                                        <input type="text" name='ContactPersonViewModel[0].Designation' style="border: none;" class="form-control form-control-sm" value="ContactPersonViewModel[0].Designation" />
+                                    </td>
+                                    <td class="detailcol2">
+                                        <input type="text" name='ContactPersonViewModel[0].Email' style="border: none;" class="form-control form-control-sm" value="ContactPersonViewModel[0].Email" />
+                                    </td>
+                                    <td class="detailcol3">
+                                        <input type="text" name='ContactPersonViewModel[0].ContactNo' style="border: none;" class="form-control form-control-sm" value="ContactPersonViewModel[0].ContactNo" />
+                                    </td>
+                                    <td class="detailcol3">
+                                        <input type="text" name='ContactPersonViewModel[0].Role' style="border: none;" class="form-control form-control-sm" value="ContactPersonViewModel[0].Role" />
+                                    </td>
+                                    <td>
+                                        <div class="row" style="padding-left: 20%; align-item:center;">
+                                            <div class="col">
+                                                <div class="row"><button class="btn btn-sm" style="float: right; background-color: #2F9FE1; width: 100%; color: white">Update</button></div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="row" style="padding-left: 20%;">
+                                                    <button class="btn btn-danger btn-sm" id="delete_row" style="float: left; color: white; width: 27px; height: 27px; border-radius: 50%; color: white; font-weight: bold;">
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>*@
+                               @* <tr class="detailRow1">
+                                    <td class="detailcol1">
+                                        <input type="text" name='ContactPersonViewModel[1].Name' style="border: none;" class="form-control form-control-sm" value="ContactPersonViewModel[1].Name" />
+                                    </td>
+                                    <td class="detailcol2">
+                                        <input type="text" name='ContactPersonViewModel[1].Designation' style="border: none;" class="form-control form-control-sm" value="ContactPersonViewModel[1].Designation" />
+                                    </td>
+                                    <td class="detailcol2">
+                                        <input type="text" name='ContactPersonViewModel[1].Email' style="border: none;" class="form-control form-control-sm" value="ContactPersonViewModel[1].Email" />
+                                    </td>
+                                    <td class="detailcol3">
+                                        <input type="text" name='ContactPersonViewModel[1].ContactNo' style="border: none;" class="form-control form-control-sm" value="ContactPersonViewModel[1].ContactNo" />
+                                    </td>
+                                    <td class="detailcol3">
+                                        <input type="text" name='ContactPersonViewModel[1].Role' style="border: none;" class="form-control form-control-sm" value="ContactPersonViewModel[1].Role" />
+                                    </td>
+                                    <td>
+                                        <div class="row" style="padding-left: 20%; align-item:center;">
+                                            <div class="col">
+                                                <div class="row"><button class="btn btn-sm" style="float: right; background-color: #2F9FE1; width: 100%; color: white">Update</button></div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="row" style="padding-left: 20%;">
+                                                    <button class="btn btn-danger btn-sm" id="delete_row" style="float: left; color: white; width: 27px; height: 27px; border-radius: 50%; color: white; font-weight: bold;">
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>*@
+                                @* <tr id='addr0'>
+                                <td>
+                                <input type="text" name='contactPerson[].Name' style="border: none;" class="form-control form-control-sm" />
+                                </td>
+                                <td>
+                                <input type="text" name='mail[]' style="border: none;" class="form-control form-control-sm" />
+                                </td>
+                                <td>
+                                <input type="text" name='mobile[]' style="border: none;" class="form-control form-control-sm" />
+                                </td>
+                                <td>
+                                <input type="text" name='mobile[]' style="border: none;" class="form-control form-control-sm" />
+                                </td>
+                                <td>
+                                <input type="text" name='mobile[]' style="border: none;" class="form-control form-control-sm" />
+                                </td>
+                                <td>
+                                <div class="row" style="padding-left: 20%; align-item:center;">
+                                <div class="col">
+                                <div class="row"><button class="btn btn-sm" style="float: right; background-color: #2F9FE1; width: 100%; color: white">Update</button></div>
+                                </div>
+                                <div class="col">
+                                <div class="row" style="padding-left: 20%;">
+                                <button class="btn btn-danger btn-sm" id="delete_row" style="float: left; color: white; width: 27px; height: 27px; border-radius: 50%; color: white; font-weight: bold;">
+                                </button>
+                                </div>
+                                </div>
+                                </div>
+                                </td>
+                                </tr>
+                                <tr id='addr1'></tr>*@
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="container" style="padding-top: 2%; padding-bottom: 1%; padding-left:0%; padding-right: 0%;">
+                    <button class="btn btn-sm" type="submit" style=" float: right; background-color: #2FE14B; width: 10%; height:100%;" role="button">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        $("#add_row").click(function() {
+            var rowCount = $('#tab_logic tbody tr').length;
+            var newRow = $('.detailRow').first().clone();
+            newRow.find('input').val('');
+            newRow.find('input.detailcol1').attr('name', 'ContactPerson[rowCount].Name');
+            newRow.find('input.detailcol2').attr('name', 'ContactPerson[rowCount].Designation');
+            newRow.find('input.detailcol3').attr('name', 'ContactPerson[rowCount].ContactNo');
+
+            newRow.appendTo($('#tab_logic tbody'));
+            console.log(rowCount);
+        });
+    });
+</script>

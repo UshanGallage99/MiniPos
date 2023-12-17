@@ -1,0 +1,48 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+body {
+    overflow-x: hidden;
+}
+.navbar {
+    background-color: #024665;
+}
+
+.col-2 {
+    background-color: #244862;
+    height: 92vh;
+}
+/*.card {
+    background-color: #FF5733;
+    border: none;
+}*/
+
+
+
+.navbar-brand {
+    font-size: 20px;
+}
+
+.card-body {
+    font-size: 20px;
+}
+.btn {
+    font-size: 20px;
+}
+

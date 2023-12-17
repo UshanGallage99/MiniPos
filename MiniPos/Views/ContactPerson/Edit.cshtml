@@ -1,0 +1,62 @@
+﻿@using MiniPos.ViewModels
+@model ContactPersonViewModel
+<head>
+    <link rel="stylesheet" href="~/css/createcutomers.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fontawesome/5.15.3/css/all.min.css">
+</head>
+
+<div class="container" style="width: 100%">
+    <div class="row" style="padding-top: 1%; padding-right: 2%;  padding-bottom:1%;  padding-left: 2%; height:100vh">
+
+        <div class="container mb-3 bg-white" style="padding-top: 2%; padding-right: 5%;  padding-bottom: 3%;  padding-left: 5%;">
+            <form method="post" asp-action="Edit">
+                <input type="hidden"  asp-for="CustomerID" id="customerID" />
+                <div class="row">
+                    <div class="col">                       
+                        <div class="form-group row">
+                            <label asp-for="Name" class="col-sm-3 col-form-label">Name</label>
+                            <div class="col-sm-8">
+                                <input type="text" asp-for="Name" class="form-control form-control-sm" id="name">
+                            </div>
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="Designation" class="col-sm-3 col-form-label">Designation</label>
+                            <div class="col-sm-6">
+                                <input asp-for="Designation" type="text" class="form-control form-control-sm" id="designation">
+                            </div>
+                            <span asp-validation-for="Designation" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="Email" class="col-sm-3 col-form-label">Email</label>
+                            <div class="col-sm-6">
+                                <input asp-for="Email" type="text" class="form-control form-control-sm" id="email">
+                            </div>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>                       
+                    </div>
+                    <div class="col">
+                        <div class="form-group row">
+                            <label asp-for="ContactNo" class="col-sm-3 col-form-label">ContactNo</label>
+                            <div class="col-sm-6">
+                                <input asp-for="ContactNo" type="text" class="form-control form-control-sm" id="contactNo">
+                            </div>
+                            <span asp-validation-for="ContactNo" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="Role" class="col-sm-3 col-form-label">Role</label>
+                            <div class="col-sm-6">
+                                <input asp-for="Role" type="text" class="form-control form-control-sm" id="role">
+                            </div>
+                            <span asp-validation-for="Role" class="text-danger"></span>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="container" style="padding-top: 2%; padding-bottom: 1%; padding-left:0%; padding-right: 0%;">
+                    <button class="btn btn-sm" type="submit" style=" float: right; background-color: #2FE14B; width: 10%; height:100%;" role="button">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

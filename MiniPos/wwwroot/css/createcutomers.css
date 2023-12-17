@@ -1,0 +1,46 @@
+﻿.collapsible {
+    background-color: #D5DFE6;
+    color: #557482;
+    cursor: pointer;
+    padding: 1%;
+    width: 100%;
+    height: 50px;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 18px;
+}
+
+
+    .collapsible:after {
+        content: '\02C5';
+        color: #557482;
+        font-weight: bold;
+        float: left;
+        padding-left: 1%;
+    }
+
+.contentOne {
+    padding: 0 1%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #F1F3F5;
+}
+
+th {
+    font-size: 15px;
+    color: #7895A3;
+    font-weight: normal;
+    text-align: center;
+}
+td {
+    text-align: center;
+}
+tbody {
+    background-color: white;
+}
+
+body {
+    overflow-y: hidden;
+}

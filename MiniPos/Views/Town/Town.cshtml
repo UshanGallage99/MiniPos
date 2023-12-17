@@ -1,0 +1,100 @@
+﻿@using MiniPos.ViewModels 
+@model TownListViewModel
+
+<div class="container" id="app">
+    <div class="row">
+        <div class="mb-3">
+            <a class="btn" style=" float: right; background-color: #2F9FE1; width: 14%; height:100%; border-radius:0px 0px;" asp-controller="town" asp-action="CreateTown" role="button">Add Town</a>
+        </div>
+        <div>
+            <form asp-action="Town">
+                <div class="input-group mb-3" style="width: 20%;  height:100%; float: right;">
+                    @*<div >*@
+                    <input name="term" class="form-control" placeholder="Search by name" style="border-radius:0px 0px;" />
+                    @*</div>*@
+                    @*<div class="col-md-4">
+                    <button type="submit" class="btn btn-info"> <i class="fa fa-search"></i></button>
+                    </div>*@
+                </div>
+            </form>
+        </div>
+        <div>
+            <table class="table table-striped table-bordered" id="user-table">
+                <thead>
+                    <tr>
+                        <th style="text-align: center;">
+                            Town Code
+                        </th> 
+                        <th style="text-align: center;"> 
+                            Town Name
+                        </th>
+                        <th style="text-align: center;">
+                            Postal Code
+                        </th>
+                        <th style="width: 10%; text-align: center;">                            
+                        </th>
+                    </tr>
+                </thead>
+                @foreach (var town in @Model.Town)
+                {
+                    <tr>
+                        <td>
+                            @town.Code
+                        </td>
+                        <td>
+                            @town.Name
+                        </td>
+                        <td>
+                            @town.PostalCode                            
+                        </td>                        
+                        <td style="width: 10%">
+                            <div class="row form-group">
+                                <div class="col" style="width: 30%;">
+                                    <form asp-action="Delete" method="post" asp-controller="town">
+                                        <button class="btn" type="submit" asp-controller="town" asp-action="Delete" asp-route-Id="@town.Id" onclick="return confirm('Delete Confirmation')">
+                                            <i class="fa fa-trash-o" style="font-size:20px;color:red"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="col" style="width: 70%;">
+                                    <a class="btn" asp-controller="town" asp-action="Edit" asp-route-Id="@town.Id">
+                                        <i class="fa fa-solid fa-pencil" style="font-size:20px;color:green"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <nav>
+            <ul class="pagination">
+                @if (Model.CurrentPage > 1)
+                {
+                    <li class="page-item ">
+                        <a class="page-link" style="background-color: #2F9FE1; color: white; border-radius:0px 0px;" href="/Town/Town?term=@Model.Term&orderBy=@Model.OrderBy&currentPage=@(Model.CurrentPage-1)" tabindex="-1">Previous</a>
+                    </li>
+                }
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    if (i == Model.CurrentPage)
+                    {
+                        <li class="page-item"><a class="page-link active" style="background-color: white; color: #797979; border-radius:0px 0px;" href="/Town/Town?term=@Model.Term&orderBy=@Model.OrderBy&currentPage=@i">@i</a></li>
+                    }
+                    else
+                    {
+                        <li class="page-item"><a class="page-link" style="background-color: #2F9FE1; color: white; border-radius:0px 0px;" href="/Town/Town?term=@Model.Term&orderBy=@Model.OrderBy&currentPage=@i">@i</a></li>
+                    }
+                }
+                @if (Model.CurrentPage < Model.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" style="background-color: #2F9FE1; color: white; border-radius:0px 0px;" href="/Town/Town?term=@Model.Term&orderBy=@Model.OrderBy&currentPage=@(Model.CurrentPage+1)">
+                            Next
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+</div>

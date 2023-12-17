@@ -1,0 +1,195 @@
+﻿@model Customers
+<head>
+    <link rel="stylesheet" href="~/css/createcutomers.css" asp-append-version="true" />
+</head>
+
+
+<div class="container" style="width: 100%" id="app">
+    <div class="row" style="padding-top: 1%; padding-right: 2%;  padding-bottom:1%;  padding-left: 2%; height:100vh">
+
+        <div class="container mb-3 bg-white" style="padding-top: 2%; padding-right: 5%;  padding-bottom: 3%;  padding-left: 5%;">
+            <form method="post" asp-action="SaveCustomer">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group row">
+                            <label asp-for="Code" class="col-sm-2 col-form-label">Code</label>
+                            <div class="col-sm-4">
+                                <input type="text" asp-for="Code" class="form-control form-control-sm" id="code" v-model="code">
+                            </div>
+                            <span asp-validation-for="Code" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="Name" class="col-sm-2 col-form-label">Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" asp-for="Name" class="form-control form-control-sm" id="name">
+                            </div>
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="MobileNo" class="col-sm-2 col-form-label">Mobile</label>
+                            <div class="col-sm-6">
+                                <input asp-for="MobileNo" type="text" class="form-control form-control-sm" id="mobile">
+                            </div>
+                            <span asp-validation-for="MobileNo" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="Email" class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-6">
+                                <input asp-for="Email" type="email" class="form-control form-control-sm" id="email">
+                            </div>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group row">
+                            <label asp-for="DOB" class="col-sm-2 col-form-label">Date</label>
+                            <div class="col-sm-6">
+                                <input asp-for="DOB" type="date" id="dob" class="form-control form-control-sm">
+                            </div>
+                            <span asp-validation-for="DOB" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="TownID" class="col-sm-2 col-form-label">Town</label>
+                            <div class="col-sm-8">
+                                <select asp-for="TownID" id="townId" class="form-control form-control-sm form-select" asp-items="ViewBag.TownId">
+                                    <option selected>Select Town</option>
+                                </select>
+                                <span asp-validation-for="TownID" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="container collapsible">
+                        <a v-on:click="togglePanel"> &nbsp; Contacts</a>
+                    </div>
+                    <div class="panel content" v-if="isPanelOpen" style="overflow-y:scroll; height:100%">
+                        <div class="row" style="padding-top: 2%;  padding-bottom: 2%;  padding-left: 2%;">
+                            <button class="btn" type="button" style="float: right; background-color: #2F9FE1; width: 18%; height:80%;" v-on:click="addRow">+ Add New Record</button>
+                        </div>
+                        <div class="row" style="padding-bottom: 2%; padding-left: 2%; padding-right: 2%;">
+                            <table class="table table-bordered" id="tab_logic" style="border: 1px solid #C9D8ED;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="width:10%">
+                                            Name
+                                        </th>
+                                        <th scope="col" style="width:10%">
+                                            Designation
+                                        </th>
+                                        <th scope="col" style="width:10%">
+                                            Email
+                                        </th>
+                                        <th scope="col" style="width:10%">
+                                            Mobile
+                                        </th>
+                                        <th scope="col" style="width:10%">
+                                            Role
+                                        </th>
+                                        <th scope="col" style="width:10%">
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="detailRow" v-for="item in ContactPerson">
+                                        <td class="detailcol1">
+                                            <input type="text" style="border: none;" class="form-control form-control-sm" v-model="item.Name" />
+                                        </td>
+                                        <td class="detailcol2">
+                                            <input type="text" name='' style="border: none;" class="form-control form-control-sm" v-model="item.Designation" />
+                                        </td>
+                                        <td class="detailcol2">
+                                            <input type="text" name='' style="border: none;" class="form-control form-control-sm" v-model="item.Email" />
+                                        </td>
+                                        <td class="detailcol3">
+                                            <input type="text" name='' style="border: none;" class="form-control form-control-sm" v-model="item.ContactNo" />
+                                        </td>
+                                        <td class="detailcol3">
+                                            <input type="text" name='' style="border: none;" class="form-control form-control-sm" v-model="item.Role" />
+                                        </td>
+                                        <td>
+                                            <div class="row" style="padding-left: 20%; align-item:center;">
+                                                <div class="col">
+                                                    <div class="row"><button class="btn btn-sm" style="float: right; background-color: #2F9FE1; width: 100%; color: white">Update</button></div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="row" style="padding-left: 20%;">
+                                                        <button class="btn btn-danger btn-sm" id="delete_row" style="float: left; color: white; width: 27px; height: 27px; border-radius: 50%; color: white; font-weight: bold;">
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="container" style="padding-top: 2%; padding-bottom: 1%; padding-left:0%; padding-right: 0%;">
+                    <button class="btn btn-sm" type="button" style=" float: right; background-color: #2FE14B; width: 10%; height:100%;" v-on:click="saveCustomers" role="button">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                code: null,
+                itemName: null,
+                itemDesignation: null,
+                itemEmail: null,
+                itemContactNo: null,
+                itemRole: null,
+                ContactPerson: [],
+                isPanelOpen: false,
+            }
+        },
+        methods: {
+            addRow() {
+                let item = {
+                    Name: this.itemName,
+                    Designation: this.itemDesignation,
+                    Email: this.itemEmail,
+                    ContactNo: this.itemContactNo,
+                    Role: this.itemRole
+                }
+               
+                this.ContactPerson.push(item);
+                  console.log(this.ContactPerson);
+            },
+
+            togglePanel() {
+                this.isPanelOpen = !this.isPanelOpen;
+            },
+            saveCustomers() {
+                const formData = {
+                    Code: document.getElementById("code").value,
+                    Name: document.getElementById("name").value,
+                    MobileNo: document.getElementById("mobile").value,
+                    Email: document.getElementById("email").value,
+                    DOB: document.getElementById("dob").value,
+                    TownID: document.getElementById("townId").value,
+                    ContactPersonViewModel: this.ContactPerson,
+                };
+                console.log(formData);
+                axios.post('/Customers/SaveCustomer', formData)
+                    .then(function(response) {
+                        alert(response.data);
+
+                    })
+                    .catch(function(error) {
+                        alert(error);
+                    });
+            },
+            onReset() {                
+              document.getElementById("code").value('')
+            },
+        }
+    })
+    app.mount('#app')
+</script>
